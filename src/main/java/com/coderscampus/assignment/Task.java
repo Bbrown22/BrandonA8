@@ -15,7 +15,7 @@ public class Task {
 
 	 public Task(Assignment8 assignment, int threadCount) {
 	 this.assignment = assignment;
-	 this.executor = Executors.newFixedThreadPool(threadCount);
+	 this.executor = Executors.newCachedThreadPool();
 	 }
 	 
 	 public CompletableFuture<List<Integer>> getNumbersAsync() {
@@ -43,10 +43,10 @@ public class Task {
 		    }
 
 		    futures.stream().forEach(CompletableFuture::join);
-
+		    
 		    task.shutdown();
 
-		    for (int i = 1; i <= 10; i++) {
+		    for (int i = 0; i <= 10; i++) {
 		        System.out.println(i + "=" + frequencyMap.getOrDefault(i, 0));
 		    }
 		}
